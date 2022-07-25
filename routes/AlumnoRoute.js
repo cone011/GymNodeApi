@@ -20,10 +20,38 @@ router.get(
   AlumnoController.GetSearchAlumno
 );
 
-router.post("/Alumno", AlumnoController.InsertAlumno);
+router.post(
+  "/Alumno",
+  [
+    body("Cedula").trim().isLength({ min: 6 }),
+    body("Nombre").trim().isLength({ min: 3 }),
+    body("FechaNacimiento").isISO8601().toDate(),
+    body("Edad").isNumeric().isLength({ min: 1 }),
+    body("Direccion").trim().isLength({ min: 10 }),
+    body("Telefono").trim().isLength({ min: 7 }),
+    body("Email").isEmail().isLength({ min: 10 }),
+  ],
+  AlumnoController.InsertAlumno
+);
 
-router.post("/Alumno/Update", AlumnoController.UpdateAlumno);
+router.post(
+  "/UpdateAlumno",
+  [
+    body("Cedula").trim().isLength({ min: 6 }),
+    body("Nombre").trim().isLength({ min: 3 }),
+    body("FechaNacimiento").isISO8601().toDate(),
+    body("Edad").isNumeric().isLength({ min: 1 }),
+    body("Direccion").trim().isLength({ min: 10 }),
+    body("Telefono").trim().isLength({ min: 7 }),
+    body("Email").isEmail().isLength({ min: 10 }),
+  ],
+  AlumnoController.UpdateAlumno
+);
 
-router.delete("/Alumno", AlumnoController.DeleteAlumno);
+router.delete(
+  "/Alumno/:IdAlumno",
+  [param("IdAlumno").isNumeric().isLength({ min: 1 })],
+  AlumnoController.DeleteAlumno
+);
 
 module.exports = router;

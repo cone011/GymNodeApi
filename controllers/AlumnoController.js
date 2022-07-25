@@ -1,5 +1,6 @@
 const Alumno = require("../models/Alumno");
-
+const { validationResult } = require("express-validator/check");
+const { Validate } = require("../util/ValidationValue");
 exports.GetAllAlumno = (req, res, next) => {
   Alumno.GetAllAlumno()
     .then((result) => {
@@ -16,6 +17,8 @@ exports.GetAllAlumno = (req, res, next) => {
 };
 
 exports.GetObjectByIdAlumno = (req, res, next) => {
+  const errors = validationResult(req);
+  Validate(errors);
   const IdAlumno = req.params.IdAlumno;
   Alumno.GetObjectByIdAlumno(IdAlumno)
     .then((result) => {
@@ -35,6 +38,8 @@ exports.GetObjectByIdAlumno = (req, res, next) => {
 };
 
 exports.GetSearchAlumno = (req, res, next) => {
+  const errors = validationResult(req);
+  Validate(errors);
   const SQLSearch = req.params.SQLSearch;
   Alumno.GetSearchAlumno(SQLSearch)
     .then((result) => {
@@ -56,6 +61,8 @@ exports.GetSearchAlumno = (req, res, next) => {
 };
 
 exports.InsertAlumno = (req, res, next) => {
+  const errors = validationResult(req);
+  Validate(errors);
   const IdUsuario = req.body.IdUsuario;
   const Cedula = req.body.Cedula;
   const Nombre = req.body.Nombre;
@@ -88,6 +95,8 @@ exports.InsertAlumno = (req, res, next) => {
 };
 
 exports.UpdateAlumno = (req, res, next) => {
+  const errors = validationResult(erros);
+  Validate(errors);
   const IdAlumno = req.body.IdAlumno;
   const IdUsuario = req.body.IdUsuario;
   const Cedula = req.body.Cedula;
@@ -121,6 +130,8 @@ exports.UpdateAlumno = (req, res, next) => {
 };
 
 exports.DeleteAlumno = (req, res, next) => {
+  const errors = validationResult(req);
+  Validate(errors);
   const IdAlumno = req.params.IdAlumno;
   Alumno.DeleteAlumno(IdAlumno)
     .then((result) => {
