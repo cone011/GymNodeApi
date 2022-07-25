@@ -1,6 +1,6 @@
 const { validationResult } = require("express-validator/check");
 const TipoEjercicio = require("../models/TipoEjercicio");
-const ValidationValue = require("../util/ValidationValue");
+const { Validate } = require("../util/ValidationValue");
 
 exports.GetAllTipoEjercicio = (req, res, next) => {
   TipoEjercicio.GetAllTipoEjercicio()
@@ -22,7 +22,7 @@ exports.GetAllTipoEjercicio = (req, res, next) => {
 
 exports.GetObjectByIdTipoEjercicio = (req, res, next) => {
   const errors = validationResult(req);
-  ValidationValue(errors);
+  Validate(errors);
   const IdTipoEjercicio = req.params.IdTipoEjercicio;
   TipoEjercicio.GetTipoEjercicioById(IdTipoEjercicio)
     .then((result) => {
@@ -43,7 +43,7 @@ exports.GetObjectByIdTipoEjercicio = (req, res, next) => {
 
 exports.InsertTipoEjercicio = (req, res, next) => {
   const errors = validationResult(req);
-  ValidationValue(errors);
+  Validate(errors);
   const Codigo = req.body.Codigo;
   const Nombre = req.body.Nombre;
   TipoEjercicio.InsertTipoEjercicio(Codigo, Nombre)
@@ -60,7 +60,7 @@ exports.InsertTipoEjercicio = (req, res, next) => {
 
 exports.UpdateTipoEjercicio = (req, res, next) => {
   const error = validationResult(req);
-  ValidationValue(error);
+  Validate(error);
   const Codigo = req.body.Codigo;
   const Nombre = req.body.Nombre;
   const IdTipoEjercicio = req.body.IdTipoEjercicio;
@@ -80,6 +80,8 @@ exports.UpdateTipoEjercicio = (req, res, next) => {
 };
 
 exports.DeleteTipoEjercicio = (req, res, next) => {
+  const errors = validationResult(req);
+  Validate(errors);
   const IdTipoEjercicio = req.params.IdTipoEjercicio;
   TipoEjercicio.DeleteTipoEjercicio(IdTipoEjercicio)
     .then((result) => {

@@ -36,6 +36,7 @@ router.post(
 
 router.delete(
   "/TipoEjercicio/:IdTipoEjercicio",
+  [param("IdTipoEjercicio").isNumeric().isLength({ min: 1 })],
   tipoEjercicioController.DeleteTipoEjercicio
 );
 

@@ -32,8 +32,22 @@ router.post(
   EjercicioController.InsertarEjercicio
 );
 
-router.post("/UpdateEjercicio", EjercicioController.UpdateEjercicio);
+router.post(
+  "/UpdateEjercicio",
+  [
+    body("IdTipoEjercicio").isNumeric().isLength({ min: 1 }),
+    body("Codigo").trim().isLength({ min: 3 }),
+    body("Nombre").trim().isLength({ min: 5 }),
+    body("ImagenUrl").trim().isLength({ min: 7 }),
+    body("VideoUrl").trim().isLength({ min: 5 }),
+  ],
+  EjercicioController.UpdateEjercicio
+);
 
-router.delete("/Ejercicio", EjercicioController.DeleteEjercicio);
+router.delete(
+  "/Ejercicio/:IdEjercicio",
+  [param("IdEjercicio").isNumeric().isLength({ min: 1 })],
+  EjercicioController.DeleteEjercicio
+);
 
 module.exports = router;

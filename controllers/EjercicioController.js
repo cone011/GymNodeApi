@@ -1,3 +1,5 @@
+const { validationResult } = require("express-validator/check");
+const ValidateValue = require("../util/ValidationValue");
 const Ejercicio = require("../models/Ejercicio");
 
 exports.GetAllEjercicio = (req, res, next) => {
@@ -16,6 +18,8 @@ exports.GetAllEjercicio = (req, res, next) => {
 };
 
 exports.GetObjectByIdEjercicio = (req, res, next) => {
+  const erros = validationResult(req);
+  ValidateValue(erros);
   const IdEjercicio = req.params.IdEjercicio;
   Usuarios.GetObjectByIdUsuario(IdEjercicio)
     .then((result) => {
@@ -35,6 +39,8 @@ exports.GetObjectByIdEjercicio = (req, res, next) => {
 };
 
 exports.GetObjectByBaseEjercicio = (req, res, next) => {
+  const erros = validationResult(req);
+  ValidateValue(erros);
   const IdTipoEjercicio = req.params.IdTipoEjercicio;
   Ejercicio.GetEjercicioByBase(IdTipoEjercicio)
     .then((result) => {
@@ -54,6 +60,9 @@ exports.GetObjectByBaseEjercicio = (req, res, next) => {
 };
 
 exports.InsertarEjercicio = (req, res, next) => {
+  const erros = validationResult(req);
+  ValidateValue(erros);
+
   const Codigo = req.body.Codigo;
   const Nombre = req.body.Nombre;
   const IdTipoEjercicio = req.body.IdTipoEjercicio;
@@ -81,6 +90,9 @@ exports.InsertarEjercicio = (req, res, next) => {
 };
 
 exports.UpdateEjercicio = (req, res, next) => {
+  const erros = validationResult(req);
+  ValidateValue(erros);
+
   const Codigo = req.body.Codigo;
   const Nombre = req.body.Nombre;
   const IdTipoEjercicio = req.body.IdTipoEjercicio;
@@ -110,6 +122,9 @@ exports.UpdateEjercicio = (req, res, next) => {
 };
 
 exports.DeleteEjercicio = (req, res, next) => {
+  const erros = validationResult(req);
+  ValidateValue(erros);
+
   const IdEjercicio = req.params.IdEjercicio;
   Ejercicio.DeleteEjercicio(IdEjercicio)
     .then((result) => {
