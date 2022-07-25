@@ -13,32 +13,32 @@ module.exports = class Dieta {
   }
 
   static GetAllDietas() {
-    return db.execute(`${DietaScript.GetAllDieta}`);
+    return db.query(`${DietaScript.GetAllDieta}`);
   }
 
   static GetObjectByIdDieta(IdDieta) {
-    return db.execute(`${DietaScript.GetObjectByIdDieta}(${IdDieta});`);
+    return db.query(`${DietaScript.GetObjectByIdDieta}(${IdDieta});`);
   }
 
   static GetHistorialDieta(FechaInicio, FechaFin, IdAlumno, IdTrainner) {
-    return db.execute(
-      `${DietaScript.GetHistorialDieta}(${FechaInicio},${FechaFin},${IdAlumno},${IdTrainner});`
+    return db.query(
+      `${DietaScript.GetHistorialDieta}('${FechaInicio}','${FechaFin}',${IdAlumno},${IdTrainner});`
     );
   }
 
   static InsertDieta(IdAlumno, Alumno, IdTrainner, Trainner, Fecha) {
-    return db.execute(
+    return db.query(
       `${DietaScript.InsertDieta}(${IdAlumno}, ${Alumno}, ${IdTrainner}, ${Trainner}, ${Fecha});`
     );
   }
 
   static UpdateDieta(IdAlumno, Alumno, IdTrainner, Trainner, Fecha, IdDieta) {
-    return db.execute(
+    return db.query(
       `${DietaScript.UpdateDieta}(${IdAlumno}, ${Alumno}, ${IdTrainner}, ${Trainner}, ${Fecha}, ${IdDieta});`
     );
   }
 
   static DeleteDieta(IdDieta) {
-    return db.execute(`${DietaScript.DeleteDieta}(${IdDieta});`);
+    return db.query(`${DietaScript.DeleteDieta}(${IdDieta});`);
   }
 };

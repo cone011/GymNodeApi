@@ -4,6 +4,11 @@ const { Validate } = require("../util/ValidationValue");
 exports.GetAllAlumno = (req, res, next) => {
   Alumno.GetAllAlumno()
     .then((result) => {
+      if (!result) {
+        const error = new Error("Could not find data");
+        error.statusCode = 404;
+        throw error;
+      }
       res
         .status(200)
         .json({ message: "Fetch all alumnos", result: result[0][0] });
