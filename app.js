@@ -7,7 +7,7 @@ const TipoEjercicioRoute = require("./routes/TipoEjercicioRoute");
 const AlumnoRouter = require("./routes/AlumnoRoute");
 const EjercicioRouter = require("./routes/EjercicioRoute");
 const UsuarioRouter = require("./routes/UsuarioRoute");
-
+const DietaDetalleRouter = require("./routes/DietaDetalleRoute");
 const port = 9091;
 
 const app = express();
@@ -35,7 +35,7 @@ const fileFilter = (req, file, cb) => {
 
 app.use(bodyParser.json());
 app.use(multer({ storage: fileStore, fileFilter: fileFilter }).single("image"));
-app.use("/images", express.static(__dirname, "images"));
+//app.use("/images", express.static(__dirname, "images"));
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader(
@@ -51,7 +51,7 @@ app.use("/api", TipoEjercicioRoute);
 app.use("/api", AlumnoRouter);
 app.use("/api", EjercicioRouter);
 app.use("/api", UsuarioRouter);
-
+app.use("/api", DietaDetalleRouter);
 app.use((error, req, res, next) => {
   console.log(error);
   const status = error.statusCode || 500;

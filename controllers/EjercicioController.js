@@ -60,14 +60,20 @@ exports.GetObjectByBaseEjercicio = (req, res, next) => {
 };
 
 exports.InsertarEjercicio = (req, res, next) => {
-  const erros = validationResult(req);
-  ValidateValue(erros);
+  const errors = validationResult(req);
+  ValidateValue(errors);
+
+  if (!req.file) {
+    const error = new Error("No image provided");
+    error.statusCode = 422;
+    throw error;
+  }
 
   const Codigo = req.body.Codigo;
   const Nombre = req.body.Nombre;
   const IdTipoEjercicio = req.body.IdTipoEjercicio;
   const TipoEjercicio = req.body.TipoEjercicio;
-  const ImageUrl = req.body.ImageUrl;
+  const ImageUrl = req.file.path;
   const VideoUrl = req.body.VideoUrl;
 
   Ejercicio.InsertEjercicio(

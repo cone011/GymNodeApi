@@ -28,13 +28,13 @@ module.exports = class DietaDetalle {
 
   static InsertDietaDetalle(IdDieta, Dia, Concepto) {
     return db.execute(
-      `${DietaDetalleScript.InsertDietaDetalle}(${IdDieta}, ${Dia}, ${Concepto});`
+      `${DietaDetalleScript.InsertDietaDetalle}(${IdDieta}, '${Dia}', '${Concepto}');`
     );
   }
 
   static UpdateDietaDetalle(IdDieta, Dia, Concepto, IdDietaDetalle) {
     return db.execute(
-      `${DietaDetalleScript.UpdateDietaDetalle}(${IdDieta}, ${Dia}, ${Concepto}, ${IdDietaDetalle});`
+      `${DietaDetalleScript.UpdateDietaDetalle}(${IdDieta}, '${Dia}', '${Concepto}', ${IdDietaDetalle});`
     );
   }
 

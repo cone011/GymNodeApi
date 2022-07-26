@@ -1,18 +1,29 @@
-const Dieta = require("../models/Dieta");
+const dietaController = require("../controllers/DietaController");
 const { body, param } = require("express-validator/check");
 const express = require("express");
 const router = express.Router();
 
-router.get("/Dieta", Dieta.GetAllDietas);
+router.get("/Dieta", dietaController.GetAllDieta);
 
 router.get(
   "/Dieta/:IdDieta",
   [param("IdDieta").isNumeric().isLength({ min: 1 })],
-  Dieta.GetObjectByIdDieta
+  dietaController.GetAllDieta
+);
+
+router.post(
+  "/Dieta",
+  [
+    body("IdAlumno").isNumeric().isLength({ min: 1 }),
+    body("Alumno").trim().isLength({ min: 5 }),
+    body("IdTrainner").isNumeric().isLength({ min: 1 }),
+    body("Trainner").trim().isLength({ min: 5 }),
+  ],
+  dietaController.InsertDieta
 );
 
 router.delete(
   "/Dieta/:IdDieta",
   [param("IdDieta").isNumeric().isLength({ min: 1 })],
-  Dieta.DeleteDieta
+  dietaController.DeleteDieta
 );

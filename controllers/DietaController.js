@@ -1,25 +1,19 @@
 const Dieta = require("../models/Dieta");
 const { validationResult } = require("express-validator/check");
 const { Validate } = require("../util/ValidationValue");
-
+const { ResultNoFound } = require("../util/ResultNotFound");
+const { ErrorHandler } = require("../util/ErrorHandler");
 exports.GetAllDieta = (req, res, next) => {
   Dieta.GetAllDietas()
     .then((result) => {
-      if (!result) {
-        const error = new Error("Could not find the data");
-        error.statusCode = 404;
-        throw error;
-      }
+      ResultNoFound(result);
       res.status(200).json({
         message: "Could fetch data from dietas",
         result: result[0][0],
       });
     })
     .catch((err) => {
-      if (!err.statusCode) {
-        err.statusCode = 500;
-      }
-      next(err);
+      ErrorHandler(err, next);
     });
 };
 
@@ -29,17 +23,13 @@ exports.GetObjectByIdDieta = (req, res, next) => {
   const IdDieta = req.params.IdDieta;
   Dieta.GetObjectByIdDieta(IdDieta)
     .then((result) => {
-      if (!result) {
-        const error = new Error("Could not find the data");
-        error.statusCode = 404;
-        throw error;
-      }
+      ResultNoFound(result);
+      res
+        .status(200)
+        .json({ message: "The data was fetched", result: result[0][0] });
     })
     .catch((err) => {
-      if (!err.statusCode) {
-        err.statusCode = 500;
-      }
-      next(err);
+      ErrorHandler(err, next);
     });
 };
 
@@ -52,20 +42,13 @@ exports.GetHistorialDieta = (req, res, next) => {
   const IdTrainner = req.body.IdTrainner;
   Dieta.GetHistorialDieta(FechaInicio, FechaFin, IdAlumno, IdTrainner)
     .then((result) => {
-      if (!result) {
-        const error = new Error("Could not get the data with the parameters");
-        error.statusCode = 404;
-        throw error;
-      }
+      ResultNoFound(result);
       res
         .status(200)
         .json({ message: "Data was able to collect", result: result[0][0] });
     })
     .catch((err) => {
-      if (!err.statusCode) {
-        err.statusCode = 500;
-      }
-      next(err);
+      ErrorHandler(err, next);
     });
 };
 
@@ -87,20 +70,13 @@ exports.InsertDieta = (req, res, next) => {
     Observacion
   )
     .then((result) => {
-      if (!result) {
-        const error = new Error("Could not insert the data");
-        error.statusCode = 404;
-        throw error;
-      }
+      ResultNoFound(result);
       res
         .status(201)
         .json({ message: "The dieta was inseted correctly", result: result });
     })
     .catch((err) => {
-      if (!err.statusCode) {
-        err.statusCode = 500;
-      }
-      next(err);
+      ErrorHandler(err, next);
     });
 };
 
@@ -113,7 +89,7 @@ exports.UpdateDieta = (req, res, next) => {
   const Trainner = req.body.Trainner;
   const FechaCarga = req.body.FechaCarga;
   const Observacion = req.body.Observacion;
-  const IdDieta = req.body.IdDieta;
+  const IdDieta = req.params.IdDieta;
   Dieta.UpdateDieta(
     IdAlumno,
     Alumno,
@@ -124,20 +100,13 @@ exports.UpdateDieta = (req, res, next) => {
     IdDieta
   )
     .then((result) => {
-      if (!result) {
-        const error = new Error("Could not update the dieta");
-        error.statusCode = 404;
-        throw error;
-      }
+      ResultNoFound(result);
       res
         .status(201)
         .json({ message: "The update was correct", result: result });
     })
     .catch((err) => {
-      if (!err.statusCode) {
-        err.statusCode = 500;
-      }
-      next(err);
+      ErrorHandler(err, next);
     });
 };
 
@@ -147,17 +116,10 @@ exports.DeleteDieta = (req, res, next) => {
   const IdDieta = req.params.IdDieta;
   Dieta.DeleteDieta(IdDieta)
     .then((result) => {
-      if (!result) {
-        const error = new Error("Could not made the update");
-        error.statusCode = 404;
-        throw error;
-      }
+      ResultNoFound(result);
       res.status(201).json({ message: "The diet was deleted", result: result });
     })
     .catch((err) => {
-      if (!err.statusCode) {
-        err.statusCode = 404;
-      }
-      next(err);
+      ErrorHandler(err, next);
     });
 };
