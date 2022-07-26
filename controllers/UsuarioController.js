@@ -1,5 +1,7 @@
 const bcrypt = require("bcryptjs");
 const Usuario = require("../models/Usuarios");
+const { validationResult } = require("express-validator/check");
+const { Validate } = require("../util/ValidationValue");
 
 exports.GetAllUsuarios = (req, res, next) => {
   Usuario.GetAllUsuarios()
@@ -15,6 +17,8 @@ exports.GetAllUsuarios = (req, res, next) => {
 };
 
 exports.GetObjectByIdUsuario = (req, res, next) => {
+  const errors = validationResult(req);
+  Validate(errors);
   const IdUsuario = req.params.IdUsuario;
   Usuario.GetObjectByIdUsuario(IdUsuario)
     .then((result) => {
@@ -34,6 +38,8 @@ exports.GetObjectByIdUsuario = (req, res, next) => {
 };
 
 exports.GetValidUsuario = (req, res, next) => {
+  const errors = validationResult(req);
+  Validate(errors);
   const User = req.body.User;
   const Password = req.body.Password;
   bcrypt
@@ -64,6 +70,8 @@ exports.GetValidUsuario = (req, res, next) => {
 };*/
 
 exports.InsertUsuario = (req, res, next) => {
+  const errors = validationResult(req);
+  Validate(errors);
   const User = req.body.User;
   const Password = req.body.Password;
   const EsTrainner = req.body.EsTrainner;
