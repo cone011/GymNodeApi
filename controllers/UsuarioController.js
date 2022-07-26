@@ -6,6 +6,11 @@ const { Validate } = require("../util/ValidationValue");
 exports.GetAllUsuarios = (req, res, next) => {
   Usuario.GetAllUsuarios()
     .then((result) => {
+      if (!result) {
+        const error = new Error("Couldn't get the data");
+        error.statusCode = 404;
+        throw error;
+      }
       res.status(200).json({ message: "Fetched all Usuarios", result: result });
     })
     .catch((err) => {
@@ -81,6 +86,11 @@ exports.InsertUsuario = (req, res, next) => {
       return Usuario.InsertUsuario(User, hashedPassword, EsTrainner);
     })
     .then((result) => {
+      if (!result) {
+        const error = new Error("Couldn't insert the user");
+        error.statusCode = 404;
+        throw error;
+      }
       res.status(201).json({ message: "Insert user correct", result: result });
     })
     .catch((err) => {
@@ -92,6 +102,8 @@ exports.InsertUsuario = (req, res, next) => {
 };
 
 exports.UpdateUsuario = (req, res, next) => {
+  const errors = validationResult(req);
+  Validate(errors);
   const User = req.body.User;
   const Password = req.body.Password;
   const EsTrainner = req.body.EsTrainner;
@@ -103,6 +115,11 @@ exports.UpdateUsuario = (req, res, next) => {
       return Usuario.UpdateUsuario(User, hashedPassword, EsTrainner, IdUsuario);
     })
     .then((result) => {
+      if (!result) {
+        const error = new Error("Couldn't update the user");
+        error.statusCode = 404;
+        throw error;
+      }
       res.status(201).json({ message: "Update user correct", result: result });
     })
     .catch((err) => {
@@ -114,10 +131,17 @@ exports.UpdateUsuario = (req, res, next) => {
 };
 
 exports.DeleteUsuario = (req, res, next) => {
+  const errors = validationResult(req);
+  Validate(errors);
   const IdUsuario = req.params.IdUsuario;
 
   Usuario.DeleteUser(IdUsuario)
     .then((result) => {
+      if (!result) {
+        const error = new Error("Couldn't delete the user");
+        error.statusCode = 404;
+        throw error;
+      }
       res.status(200).json({ message: "Usuario deleted", result: result });
     })
     .catch((err) => {

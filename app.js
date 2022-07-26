@@ -1,19 +1,41 @@
 const path = require("path");
 const express = require("express");
 const bodyParser = require("body-parser");
-
+const multer = require("multer");
 const DiaRoute = require("./routes/DiaRoute");
 const TipoEjercicioRoute = require("./routes/TipoEjercicioRoute");
 const AlumnoRouter = require("./routes/AlumnoRoute");
 const EjercicioRouter = require("./routes/EjercicioRoute");
 const UsuarioRouter = require("./routes/UsuarioRoute");
 
-const app = express();
-
 const port = 9091;
 
-app.use(bodyParser.json());
+const app = express();
 
+const fileStore = multer.diskStorage({
+  destination: (req, res, cb) => {
+    cb(null, "images");
+  },
+  filename: (req, file, cb) => {
+    cb(null, "GYM_" + file.originalname);
+  },
+});
+
+const fileFilter = (req, file, cb) => {
+  if (
+    file.mimetype === "image/png" ||
+    file.mimetype === "image/jpg" ||
+    file.mimetype === "image/jpge"
+  ) {
+    cb(null, true);
+  } else {
+    cb(null, false);
+  }
+};
+
+app.use(bodyParser.json());
+app.use(multer({ storage: fileStore, fileFilter: fileFilter }).single("image"));
+app.use("/images", express.static(__dirname, "images"));
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader(
