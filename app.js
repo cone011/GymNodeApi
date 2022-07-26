@@ -7,6 +7,7 @@ const TipoEjercicioRoute = require("./routes/TipoEjercicioRoute");
 const AlumnoRouter = require("./routes/AlumnoRoute");
 const EjercicioRouter = require("./routes/EjercicioRoute");
 const UsuarioRouter = require("./routes/UsuarioRoute");
+const DietaRouter = require("./routes/DietaRoute");
 const DietaDetalleRouter = require("./routes/DietaDetalleRoute");
 const port = 9091;
 
@@ -52,6 +53,7 @@ app.use("/api", AlumnoRouter);
 app.use("/api", EjercicioRouter);
 app.use("/api", UsuarioRouter);
 app.use("/api", DietaDetalleRouter);
+app.use("/api", DietaRouter);
 app.use((error, req, res, next) => {
   console.log(error);
   const status = error.statusCode || 500;

@@ -18,8 +18,22 @@ router.post(
     body("Alumno").trim().isLength({ min: 5 }),
     body("IdTrainner").isNumeric().isLength({ min: 1 }),
     body("Trainner").trim().isLength({ min: 5 }),
+    body("FechaCarga").isISO8601().toDate(),
   ],
   dietaController.InsertDieta
+);
+
+router.put(
+  "/Dieta/:IdDieta",
+  [
+    body("IdAlumno").isNumeric().isLength({ min: 1 }),
+    body("Alumno").trim().isLength({ min: 5 }),
+    body("IdTrainner").isNumeric().isLength({ min: 1 }),
+    body("Trainner").trim().isLength({ min: 5 }),
+    body("FechaCarga").isISO8601().toDate(),
+    param("IdDieta").isNumeric().isLength({ min: 1 }),
+  ],
+  dietaController.UpdateDieta
 );
 
 router.delete(
@@ -27,3 +41,5 @@ router.delete(
   [param("IdDieta").isNumeric().isLength({ min: 1 })],
   dietaController.DeleteDieta
 );
+
+module.exports = router;
