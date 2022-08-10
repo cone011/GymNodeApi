@@ -1,4 +1,5 @@
 const path = require("path");
+const fs = require("fs");
 const express = require("express");
 const bodyParser = require("body-parser");
 const multer = require("multer");
@@ -9,7 +10,9 @@ const EjercicioRouter = require("./routes/EjercicioRoute");
 const UsuarioRouter = require("./routes/UsuarioRoute");
 const DietaRouter = require("./routes/DietaRoute");
 const DietaDetalleRouter = require("./routes/DietaDetalleRoute");
-const port = 9091;
+const dotenv = require("dotenv");
+const helmet = require("helmet");
+const morgan = require("morgan");
 
 const app = express();
 
@@ -34,7 +37,18 @@ const fileFilter = (req, file, cb) => {
   }
 };
 
+const accessLogStream = fs.createWriteStream(
+  path.join(__dirname, "acces.log"),
+  { flags: "a" }
+);
+
 app.use(bodyParser.json());
+app.use(helmet());
+app.use(morgan("combined", { stream: accessLogStream }));
+dotenv.config();
+
+const port = process.env.PORT || 3000;
+
 app.use(multer({ storage: fileStore, fileFilter: fileFilter }).single("image"));
 //app.use("/images", express.static(__dirname, "images"));
 app.use((req, res, next) => {
