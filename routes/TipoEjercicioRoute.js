@@ -4,7 +4,7 @@ const express = require("express");
 
 const router = express.Router();
 
-const { body, param } = require("express-validator/check");
+const { body, param } = require("express-validator");
 
 const tipoEjercicioController = require("../controllers/TipoEjercicioController");
 
