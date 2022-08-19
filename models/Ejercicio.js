@@ -54,9 +54,9 @@ module.exports = class Ejercicio {
     TipoEjercicio,
     Codigo,
     Nombre,
-    IdEjercicio,
     ImagenUrl,
-    VideoUrl
+    VideoUrl,
+    IdEjercicio
   ) {
     return db.execute(
       `${EjercicioScript.UpdateEjercicio}(${IdTipoEjercicio}, '${TipoEjercicio}','${Codigo}', '${Nombre}', '${ImagenUrl}', '${VideoUrl}', ${IdEjercicio});`

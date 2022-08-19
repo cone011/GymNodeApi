@@ -1,80 +1,66 @@
-const { validationResult } = require("express-validator/check");
-const ValidateValue = require("../util/ValidationValue");
+const { validationResult } = require("express-validator");
+const { Validate } = require("../util/ValidationValue");
 const Ejercicio = require("../models/Ejercicio");
+const { ErrorHandler } = require("../util/ErrorHandler");
+const { ResultNoFound } = require("../util/ResultNotFound");
 
 exports.GetAllEjercicio = (req, res, next) => {
   Ejercicio.GetAllEjercicio()
     .then((result) => {
+      ResultNoFound(result, "Could not find any data");
       res
         .status(200)
         .json({ message: "All fetch ejercicio", result: result[0][0] });
     })
     .catch((err) => {
-      if (!err.statusCode) {
-        err.statusCode = 500;
-      }
-      next(err);
+      ErrorHandler(err, next);
     });
 };
 
 exports.GetObjectByIdEjercicio = (req, res, next) => {
-  const erros = validationResult(req);
-  ValidateValue(erros);
+  const errors = validationResult(req);
+  Validate(errors);
   const IdEjercicio = req.params.IdEjercicio;
   Usuarios.GetObjectByIdUsuario(IdEjercicio)
     .then((result) => {
-      if (!result) {
-        const error = new Error("Could not get the ejercicio");
-        error.statusCode = 404;
-        throw error;
-      }
+      ResultNoFound(result, "Could not find the data with this value");
       res.status(200).json({ message: "Ejercicio found it", result: result });
     })
     .catch((err) => {
-      if (!err.statusCode) {
-        err.statusCode = 500;
-      }
-      next(err);
+      ErrorHandler(err, next);
     });
 };
 
 exports.GetObjectByBaseEjercicio = (req, res, next) => {
-  const erros = validationResult(req);
-  ValidateValue(erros);
+  const errors = validationResult(req);
+  Validate(errors);
   const IdTipoEjercicio = req.params.IdTipoEjercicio;
   Ejercicio.GetEjercicioByBase(IdTipoEjercicio)
     .then((result) => {
-      if (!result) {
-        const error = new Error("Could not find the ejercicios");
-        error.statusCode = 404;
-        throw error;
-      }
+      ResultNoFound(result, "Could not find the ejercicios");
       res.status(200).json({ message: "Find the ejercicios", result: result });
     })
     .catch((err) => {
-      if (!err.statusCode) {
-        err.statusCode = 500;
-      }
-      next(err);
+      ErrorHandler(err, next);
     });
 };
 
 exports.InsertarEjercicio = (req, res, next) => {
   const errors = validationResult(req);
-  ValidateValue(errors);
+  Validate(errors);
 
-  if (!req.file) {
+  /*if (!req.file) {
     const error = new Error("No image provided");
     error.statusCode = 422;
     throw error;
-  }
+  }*/
 
   const Codigo = req.body.Codigo;
   const Nombre = req.body.Nombre;
   const IdTipoEjercicio = req.body.IdTipoEjercicio;
   const TipoEjercicio = req.body.TipoEjercicio;
-  const ImageUrl = req.file.path;
-  const VideoUrl = req.body.VideoUrl;
+  const ImageUrl = "test"; //req.file.path;
+  const VideoUrl = "test"; //req.body.VideoUrl;
 
   Ejercicio.InsertEjercicio(
     IdTipoEjercicio,
@@ -88,63 +74,50 @@ exports.InsertarEjercicio = (req, res, next) => {
       res.status(201).json({ message: "Insert ejercicio", result: result });
     })
     .catch((err) => {
-      if (!err.statusCode) {
-        err.statusCode = 500;
-      }
-      next(err);
+      ErrorHandler(err, next);
     });
 };
 
 exports.UpdateEjercicio = (req, res, next) => {
-  const erros = validationResult(req);
-  ValidateValue(erros);
+  const errors = validationResult(req);
+  Validate(errors);
 
+  const IdEjercicio = req.params.IdEjercicio;
   const Codigo = req.body.Codigo;
   const Nombre = req.body.Nombre;
   const IdTipoEjercicio = req.body.IdTipoEjercicio;
   const TipoEjercicio = req.body.TipoEjercicio;
-  const ImageUrl = req.body.ImageUrl;
-  const VideoUrl = req.body.VideoUrl;
-  const IdEjercicio = req.body.IdEjercicio;
+  const ImageUrl = "test"; //req.file.path;
+  const VideoUrl = "test"; //req.body.VideoUrl;
 
   Ejercicio.UpdateEjercicio(
     IdTipoEjercicio,
     TipoEjercicio,
     Codigo,
     Nombre,
-    IdEjercicio,
     ImageUrl,
-    VideoUrl
+    VideoUrl,
+    IdEjercicio
   )
     .then((result) => {
       res.status(201).json({ message: "Update ejercicio", result: result });
     })
     .catch((err) => {
-      if (!err.statusCode) {
-        err.statusCode = 500;
-      }
-      next(err);
+      ErrorHandler(err, next);
     });
 };
 
 exports.DeleteEjercicio = (req, res, next) => {
-  const erros = validationResult(req);
-  ValidateValue(erros);
+  const errors = validationResult(req);
+  Validate(errors);
 
   const IdEjercicio = req.params.IdEjercicio;
   Ejercicio.DeleteEjercicio(IdEjercicio)
     .then((result) => {
-      if (!result) {
-        const error = new Error("Cant delete ejercicio");
-        error.statusCode = 404;
-        throw error;
-      }
+      ResultNoFound(result, "Cant delete ejercicio");
       res.status(200).json({ message: "Delete is ok" });
     })
     .catch((err) => {
-      if (!err.statusCode) {
-        err.statusCode = 500;
-      }
-      next(err);
+      ErrorHandler(err, next);
     });
 };

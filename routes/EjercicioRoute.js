@@ -24,22 +24,21 @@ router.post(
   "/Ejercicio",
   [
     body("IdTipoEjercicio").isNumeric().isLength({ min: 1 }),
+    body("TipoEjercicio").trim().isLength({ min: 3 }),
     body("Codigo").trim().isLength({ min: 3 }),
     body("Nombre").trim().isLength({ min: 5 }),
-    body("ImagenUrl").trim().isLength({ min: 7 }),
-    body("VideoUrl").trim().isLength({ min: 5 }),
   ],
   EjercicioController.InsertarEjercicio
 );
 
-router.post(
-  "/UpdateEjercicio",
+router.put(
+  "/Ejercicio/:IdEjercicio",
   [
+    param("IdEjercicio").isNumeric().isLength({ min: 1 }),
     body("IdTipoEjercicio").isNumeric().isLength({ min: 1 }),
+    body("TipoEjercicio").trim().isLength({ min: 3 }),
     body("Codigo").trim().isLength({ min: 3 }),
     body("Nombre").trim().isLength({ min: 5 }),
-    body("ImagenUrl").trim().isLength({ min: 7 }),
-    body("VideoUrl").trim().isLength({ min: 5 }),
   ],
   EjercicioController.UpdateEjercicio
 );
