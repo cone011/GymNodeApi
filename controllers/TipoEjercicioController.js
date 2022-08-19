@@ -1,22 +1,19 @@
-const { validationResult } = require("express-validator/check");
+const { validationResult } = require("express-validator");
 const TipoEjercicio = require("../models/TipoEjercicio");
 const { Validate } = require("../util/ValidationValue");
+const { ResultNoFound } = require("../util/ResultNotFound");
+const { ErrorHandler } = require("../util/ErrorHandler");
 
 exports.GetAllTipoEjercicio = (req, res, next) => {
   TipoEjercicio.GetAllTipoEjercicio()
-    .then((posts) => {
-      if (!posts) {
-        const error = new Error("Could not find the type");
-        error.statusCode = 404;
-        throw error;
+    .then((result) => {
+      if (!result) {
+        ResultNoFound("Could not found results");
       }
-      res.status(200).json({ message: "fetch posts ok", posts: posts[0][0] });
+      res.status(200).json({ message: "fetch posts ok", result: result[0][0] });
     })
     .catch((err) => {
-      if (!err.statusCode) {
-        err.statusCode = 500;
-      }
-      next(err);
+      ErrorHandler(err, next);
     });
 };
 
@@ -26,18 +23,13 @@ exports.GetObjectByIdTipoEjercicio = (req, res, next) => {
   const IdTipoEjercicio = req.params.IdTipoEjercicio;
   TipoEjercicio.GetTipoEjercicioById(IdTipoEjercicio)
     .then((result) => {
-      if (!result) {
-        const error = new Error("Could not find the type");
-        error.statusCode = 404;
-        throw error;
-      }
-      res.status(200).json({ message: "Type Fetched", post: result[0][0][0] });
+      ResultNoFound("Could not found a result with this value");
+      res
+        .status(200)
+        .json({ message: "Type Fetched", result: result[0][0][0] });
     })
     .catch((err) => {
-      if (!err.statusCode) {
-        err.statusCode = 500;
-      }
-      next(err);
+      ErrorHandler(err, next);
     });
 };
 
@@ -50,32 +42,29 @@ exports.InsertTipoEjercicio = (req, res, next) => {
     .then((result) => {
       res.status(201).json({
         message: "Insert Type Correct",
-        posts: result,
+        result: result,
       });
     })
     .catch((err) => {
-      console.log(err);
+      ErrorHandler(err, next);
     });
 };
 
 exports.UpdateTipoEjercicio = (req, res, next) => {
   const error = validationResult(req);
   Validate(error);
+  const IdTipoEjercicio = req.params.IdTipoEjercicio;
   const Codigo = req.body.Codigo;
   const Nombre = req.body.Nombre;
-  const IdTipoEjercicio = req.body.IdTipoEjercicio;
   TipoEjercicio.UpdateTipoEjercicio(Codigo, Nombre, IdTipoEjercicio)
     .then((result) => {
       res.status(201).json({
         message: "Update type correct",
-        post: result,
+        result: result,
       });
     })
     .catch((err) => {
-      if (!err.statusCode) {
-        err.statusCode = 500;
-      }
-      next(err);
+      ErrorHandler(err, next);
     });
 };
 
@@ -85,12 +74,9 @@ exports.DeleteTipoEjercicio = (req, res, next) => {
   const IdTipoEjercicio = req.params.IdTipoEjercicio;
   TipoEjercicio.DeleteTipoEjercicio(IdTipoEjercicio)
     .then((result) => {
-      res.status(200).json({ message: "Deleted type" });
+      res.status(200).json({ message: "Deleted type", result });
     })
     .catch((err) => {
-      if (!err.statusCode) {
-        err.statusCode = 500;
-      }
-      next(err);
+      ErrorHandler(err, next);
     });
 };

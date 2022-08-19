@@ -25,9 +25,10 @@ router.post(
   tipoEjercicioController.InsertTipoEjercicio
 );
 
-router.post(
-  "/UpdateTipoEjercicio",
+router.put(
+  "/TipoEjercicio/:IdTipoEjercicio",
   [
+    param("IdTipoEjercicio").isNumeric().isLength({ min: 1 }),
     body("Codigo").trim().isLength({ min: 3 }),
     body("Nombre").trim().isLength({ min: 5 }),
   ],
