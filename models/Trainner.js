@@ -1,4 +1,3 @@
-const { text } = require("express");
 const db = require("../config/database");
 
 const TrainnerScript = require("../scripts/TrainnerScript");

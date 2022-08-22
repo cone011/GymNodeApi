@@ -4,7 +4,7 @@ const router = express.Router();
 
 const AlumnoController = require("../controllers/AlumnoController");
 
-const { body, param } = require("express-validator/check");
+const { body, param } = require("express-validator");
 
 router.get("/Alumno", AlumnoController.GetAllAlumno);
 
@@ -34,9 +34,10 @@ router.post(
   AlumnoController.InsertAlumno
 );
 
-router.post(
-  "/UpdateAlumno",
+router.put(
+  "/Alumno/:IdAlumno",
   [
+    param("IdAlumno").isNumeric().isLength({ min: 1 }),
     body("Cedula").trim().isLength({ min: 6 }),
     body("Nombre").trim().isLength({ min: 3 }),
     body("FechaNacimiento").isISO8601().toDate(),

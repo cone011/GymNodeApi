@@ -10,6 +10,7 @@ const EjercicioRouter = require("./routes/EjercicioRoute");
 const UsuarioRouter = require("./routes/UsuarioRoute");
 const DietaRouter = require("./routes/DietaRoute");
 const DietaDetalleRouter = require("./routes/DietaDetalleRoute");
+const TrainnerRouter = require("./routes/TrainnerRoute");
 const dotenv = require("dotenv");
 const helmet = require("helmet");
 const morgan = require("morgan");
@@ -68,6 +69,8 @@ app.use("/api", EjercicioRouter);
 app.use("/api", UsuarioRouter);
 app.use("/api", DietaDetalleRouter);
 app.use("/api", DietaRouter);
+app.use("/api", TrainnerRouter);
+
 app.use((error, req, res, next) => {
   console.log(error);
   const status = error.statusCode || 500;

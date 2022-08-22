@@ -1,23 +1,19 @@
 const Alumno = require("../models/Alumno");
 const { validationResult } = require("express-validator/check");
 const { Validate } = require("../util/ValidationValue");
+const { ResultNoFound } = require("../util/ResultNotFound");
+const { ErrorHandler } = require("../util/ErrorHandler");
+
 exports.GetAllAlumno = (req, res, next) => {
   Alumno.GetAllAlumno()
     .then((result) => {
-      if (!result) {
-        const error = new Error("Could not find data");
-        error.statusCode = 404;
-        throw error;
-      }
+      ResultNoFound(result);
       res
         .status(200)
         .json({ message: "Fetch all alumnos", result: result[0][0] });
     })
     .catch((err) => {
-      if (!err.statusCode) {
-        err.statusCode = 500;
-      }
-      next(err);
+      ErrorHandler(err, next);
     });
 };
 
@@ -27,18 +23,11 @@ exports.GetObjectByIdAlumno = (req, res, next) => {
   const IdAlumno = req.params.IdAlumno;
   Alumno.GetObjectByIdAlumno(IdAlumno)
     .then((result) => {
-      if (!result) {
-        const error = new Error("Could not find the Alumno");
-        error.statusCode = 404;
-        throw error;
-      }
+      ResultNoFound(result);
       res.status(200).json({ message: "Alumno Fetched", result: result[0][0] });
     })
     .catch((err) => {
-      if (!err.statusCode) {
-        err.statusCode = 500;
-      }
-      next(err);
+      ErrorHandler(err, next);
     });
 };
 
@@ -48,20 +37,13 @@ exports.GetSearchAlumno = (req, res, next) => {
   const SQLSearch = req.params.SQLSearch;
   Alumno.GetSearchAlumno(SQLSearch)
     .then((result) => {
-      if (!result) {
-        const error = new Error("Could not find the search");
-        error.statusCode = 404;
-        throw error;
-      }
+      ResultNoFound(result);
       res
         .status(200)
         .json({ message: "Alumnos search complete", result: result[0][0] });
     })
     .catch((err) => {
-      if (!err.statusCode) {
-        err.statusCode = 500;
-      }
-      next(err);
+      ErrorHandler(err, next);
     });
 };
 
@@ -87,6 +69,7 @@ exports.InsertAlumno = (req, res, next) => {
     Email
   )
     .then((result) => {
+      ResultNoFound(result);
       res
         .status(201)
         .json({ message: "Insert Alumno Correct", result: result });
@@ -102,7 +85,7 @@ exports.InsertAlumno = (req, res, next) => {
 exports.UpdateAlumno = (req, res, next) => {
   const errors = validationResult(erros);
   Validate(errors);
-  const IdAlumno = req.body.IdAlumno;
+  const IdAlumno = req.params.IdAlumno;
   const IdUsuario = req.body.IdUsuario;
   const Cedula = req.body.Cedula;
   const Nombre = req.body.Nombre;
@@ -124,13 +107,11 @@ exports.UpdateAlumno = (req, res, next) => {
     IdAlumno
   )
     .then((result) => {
+      ResultNoFound(result);
       res.status(200).json({ message: "Update Alumno", result: result });
     })
     .catch((err) => {
-      if (!err.statusCode) {
-        err.statusCode = 500;
-      }
-      next(err);
+      ErrorHandler(err, next);
     });
 };
 
@@ -140,17 +121,10 @@ exports.DeleteAlumno = (req, res, next) => {
   const IdAlumno = req.params.IdAlumno;
   Alumno.DeleteAlumno(IdAlumno)
     .then((result) => {
-      if (!result) {
-        const error = new Error("Cant delete alumno");
-        error.statusCode = 404;
-        throw error;
-      }
+      ResultNoFound(result);
       res.status(200).json({ message: "Delete Alumno" });
     })
     .catch((err) => {
-      if (!err.statusCode) {
-        err.statusCode = 500;
-      }
-      next(err);
+      ErrorHandler(err, next);
     });
 };

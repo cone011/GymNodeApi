@@ -1,5 +1,5 @@
 const dietaController = require("../controllers/DietaController");
-const { body, param } = require("express-validator/check");
+const { body, param } = require("express-validator");
 const express = require("express");
 const router = express.Router();
 
