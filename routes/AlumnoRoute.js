@@ -15,7 +15,7 @@ router.get(
 );
 
 router.get(
-  "/Alumno/GetSearch/:SQLSearch",
+  "/Alumno-search/:SQLSearch",
   [param("SQLSearch").trim().isLength({ min: 4 })],
   AlumnoController.GetSearchAlumno
 );
