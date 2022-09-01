@@ -17,12 +17,12 @@ const morgan = require("morgan");
 
 const app = express();
 
-const fileStore = multer.diskStorage({
-  destination: (req, res, cb) => {
+const fileStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
     cb(null, "images");
   },
   filename: (req, file, cb) => {
-    cb(null, "GYM_" + file.originalname);
+    cb(null, "GYM" + "-" + file.originalname);
   },
 });
 
@@ -30,7 +30,7 @@ const fileFilter = (req, file, cb) => {
   if (
     file.mimetype === "image/png" ||
     file.mimetype === "image/jpg" ||
-    file.mimetype === "image/jpge"
+    file.mimetype === "image/jpeg"
   ) {
     cb(null, true);
   } else {
@@ -50,8 +50,11 @@ dotenv.config();
 
 const port = process.env.PORT || 3000;
 
-app.use(multer({ storage: fileStore, fileFilter: fileFilter }).single("image"));
-//app.use("/images", express.static(__dirname, "images"));
+app.use(
+  multer({ storage: fileStorage, fileFilter: fileFilter }).single("image")
+);
+app.use("/images", express.static(path.join(__dirname, "images")));
+
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader(

@@ -49,19 +49,12 @@ exports.InsertarEjercicio = (req, res, next) => {
   const errors = validationResult(req);
   Validate(errors);
 
-  /*if (!req.file) {
-    const error = new Error("No image provided");
-    error.statusCode = 422;
-    throw error;
-  }*/
-
   const Codigo = req.body.Codigo;
   const Nombre = req.body.Nombre;
   const IdTipoEjercicio = req.body.IdTipoEjercicio;
   const TipoEjercicio = req.body.TipoEjercicio;
-  const ImageUrl = "test"; //req.file.path;
+  const ImageUrl = req.file.filename;
   const VideoUrl = "test"; //req.body.VideoUrl;
-
   Ejercicio.InsertEjercicio(
     IdTipoEjercicio,
     TipoEjercicio,
@@ -71,6 +64,7 @@ exports.InsertarEjercicio = (req, res, next) => {
     VideoUrl
   )
     .then((result) => {
+      ResultNoFound(result);
       res.status(201).json({ message: "Insert ejercicio", result: result });
     })
     .catch((err) => {
