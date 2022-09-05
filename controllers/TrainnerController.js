@@ -1,22 +1,32 @@
 const Trainner = require("../models/Trainner");
+const { validationResult } = require("express-validator");
+const { Validate } = require("../util/ValidationValue");
+const { ErrorHandler } = require("../util/ErrorHandler");
+const { ResultNoFound } = require("../util/ResultNotFound");
 
-exports.GetAllTrainner = async function (req, res, next) {
-  try {
-    res.json(await Trainner.GetAllTrainners());
-  } catch (err) {
-    console.log(`Error to fetch the trainners`, err.message);
-    next(err);
-  }
+exports.GetAllTrainner = (req, res, next) => {
+  Trainner.GetAllTrainners()
+    .then((result) => {
+      ResultNoFound(result);
+      res.status(200).json({ mensaje: "OK", result: result[0][0] });
+    })
+    .catch((err) => {
+      ErrorHandler(err, next);
+    });
 };
 
-exports.GetObjectByIdTrainner = async function (req, res, next) {
-  try {
-    const IdTrainner = req.params.IdTrainners;
-    res.json(await Trainner.GetObjectByIdTrainner(IdTrainner));
-  } catch (err) {
-    console.log(`Error to fetch the Id Trainner`, err.message);
-    next(err);
-  }
+exports.GetObjectByIdTrainner = (req, res, next) => {
+  const errors = validationResult(req);
+  Validate(errors);
+  const IdTrainner = req.params.IdTrainner;
+  Trainner.GetObjectByIdTrainner(IdTrainner)
+    .then((result) => {
+      ResultNoFound(result);
+      res.status(200).json({ mensaje: "OK", result: result[0][0] });
+    })
+    .catch((err) => {
+      ErrorHandler(err, next);
+    });
 };
 
 exports.GetSearchTrainner = async function (req, res, next) {
@@ -85,12 +95,16 @@ exports.UpdateTrainner = async function (req, res, next) {
   }
 };
 
-exports.DeleteTrainner = async function (req, res, next) {
-  try {
-    const IdTrainner = req.params.IdTrainner;
-    res.json(await Trainner.DeleteTrainner(IdTrainner));
-  } catch (err) {
-    console.log(`Error to delete the trainner`, err.message);
-    next(err);
-  }
+exports.DeleteTrainner = (req, res, next) => {
+  const errors = validationResult(req);
+  Validate(errors);
+  const IdTrainner = req.params.IdTrainner;
+  Trainner.DeleteTrainner(IdTrainner)
+    .then((result) => {
+      ResultNoFound(result);
+      res.status(201).json({ mensaje: "OK", result: result });
+    })
+    .catch((err) => {
+      ErrorHandler(err, next);
+    });
 };

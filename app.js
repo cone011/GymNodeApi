@@ -3,6 +3,10 @@ const fs = require("fs");
 const express = require("express");
 const bodyParser = require("body-parser");
 const multer = require("multer");
+const dotenv = require("dotenv");
+const helmet = require("helmet");
+const morgan = require("morgan");
+
 const DiaRoute = require("./routes/DiaRoute");
 const TipoEjercicioRoute = require("./routes/TipoEjercicioRoute");
 const AlumnoRouter = require("./routes/AlumnoRoute");
@@ -11,9 +15,7 @@ const UsuarioRouter = require("./routes/UsuarioRoute");
 const DietaRouter = require("./routes/DietaRoute");
 const DietaDetalleRouter = require("./routes/DietaDetalleRoute");
 const TrainnerRouter = require("./routes/TrainnerRoute");
-const dotenv = require("dotenv");
-const helmet = require("helmet");
-const morgan = require("morgan");
+const FormaComidaRouter = require("./routes/FormaComidaRoute");
 
 const app = express();
 
@@ -44,7 +46,7 @@ const accessLogStream = fs.createWriteStream(
 );
 
 app.use(bodyParser.json());
-app.use(helmet());
+app.use(helmet({ crossOriginEmbedderPolicy: false }));
 app.use(morgan("combined", { stream: accessLogStream }));
 dotenv.config();
 
@@ -73,6 +75,7 @@ app.use("/api", UsuarioRouter);
 app.use("/api", DietaDetalleRouter);
 app.use("/api", DietaRouter);
 app.use("/api", TrainnerRouter);
+app.use("/api", FormaComidaRouter);
 
 app.use((error, req, res, next) => {
   console.log(error);
