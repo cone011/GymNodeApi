@@ -26,15 +26,15 @@ module.exports = class DietaDetalle {
     );
   }
 
-  static InsertDietaDetalle(IdDieta, Dia, Concepto) {
+  static InsertDietaDetalle(IdDieta, IdFormaComida, IdDia, Concepto) {
     return db.execute(
-      `${DietaDetalleScript.InsertDietaDetalle}(${IdDieta}, '${Dia}', '${Concepto}');`
+      `${DietaDetalleScript.InsertDietaDetalle}(${IdDieta}, ${IdFormaComida}, ${IdDia}, '${Concepto}');`
     );
   }
 
-  static UpdateDietaDetalle(IdDieta, Dia, Concepto, IdDietaDetalle) {
+  static UpdateDietaDetalle(IdDieta, IdDia, IdFormaComida, IdDietaDetalle) {
     return db.execute(
-      `${DietaDetalleScript.UpdateDietaDetalle}(${IdDieta}, '${Dia}', '${Concepto}', ${IdDietaDetalle});`
+      `${DietaDetalleScript.UpdateDietaDetalle}(${IdDieta}, ${IdFormaComida}, ${IdDia}, ${IdDietaDetalle});`
     );
   }
 

@@ -1,4 +1,5 @@
 const Dieta = require("../models/Dieta");
+const DietaDetalle = require("../models/DietaDetalle");
 const { validationResult } = require("express-validator/check");
 const { Validate } = require("../util/ValidationValue");
 const { ResultNoFound } = require("../util/ResultNotFound");
@@ -52,33 +53,41 @@ exports.GetHistorialDieta = (req, res, next) => {
     });
 };
 
-exports.InsertDieta = (req, res, next) => {
-  const errors = validationResult(req);
-  Validate(errors);
-  const IdAlumno = req.body.IdAlumno;
-  const Alumno = req.body.Alumno;
-  const IdTrainner = req.body.IdTrainner;
-  const Trainner = req.body.Trainner;
-  const FechaCarga = req.body.FechaCarga;
-  const Observacion = req.body.Observacion;
-  Dieta.InsertDieta(
-    IdAlumno,
-    Alumno,
-    IdTrainner,
-    Trainner,
-    FechaCarga,
-    Observacion
-  )
-    .then((result) => {
-      ResultNoFound(result);
-      res.status(201).json({
-        message: "The dieta was inseted correctly",
-        ...result[0][0][0],
-      });
-    })
-    .catch((err) => {
-      ErrorHandler(err, next);
+exports.InsertDieta = async (req, res, next) => {
+  try {
+    const errors = validationResult(req);
+    Validate(errors);
+    const IdAlumno = req.body.IdAlumno;
+    const Alumno = req.body.Alumno;
+    const IdTrainner = req.body.IdTrainner;
+    const Trainner = req.body.Trainner;
+    const FechaCarga = req.body.FechaCarga;
+    const Observacion = req.body.Observacion;
+    const DietaDetalleList = req.body.DietaDetalleList;
+    const result = await Dieta.InsertDieta(
+      IdAlumno,
+      Alumno,
+      IdTrainner,
+      Trainner,
+      FechaCarga,
+      Observacion
+    );
+    const Id = { ...result[0][0][0] };
+    for (const key in DietaDetalleList) {
+      const resultDetal = await DietaDetalle.InsertDietaDetalle(
+        Id.Id,
+        DietaDetalleList[key].IdFormaComida,
+        DietaDetalleList[key].IdDia,
+        DietaDetalleList[key].Concepto
+      );
+    }
+    res.status(201).json({
+      message: "The dieta was inseted correctly",
+      Id: Id,
     });
+  } catch (err) {
+    ErrorHandler(err, next);
+  }
 };
 
 exports.UpdateDieta = (req, res, next) => {
