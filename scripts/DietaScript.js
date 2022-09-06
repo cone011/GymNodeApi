@@ -5,7 +5,7 @@ module.exports = class DietaScript {
 
   static GetHistorialDieta = "CALL pa_GetHistorialDieta";
 
-  static InsertDieta = "CALL pa_InsertDieta";
+  static InsertDieta = "CALL pa_InsertarDieta";
 
   static UpdateDieta = "CALL pa_UpdateDieta";
 

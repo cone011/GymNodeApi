@@ -26,15 +26,22 @@ module.exports = class Dieta {
     );
   }
 
-  static InsertDieta(IdAlumno, Alumno, IdTrainner, Trainner, Fecha) {
+  static InsertDieta(
+    IdAlumno,
+    Alumno,
+    IdTrainner,
+    Trainner,
+    Fecha,
+    Observacion
+  ) {
     return db.query(
-      `${DietaScript.InsertDieta}(${IdAlumno}, ${Alumno}, ${IdTrainner}, ${Trainner}, ${Fecha});`
+      `${DietaScript.InsertDieta}(${IdAlumno}, '${Alumno}', ${IdTrainner}, '${Trainner}', '${Fecha}', '${Observacion}');`
     );
   }
 
   static UpdateDieta(IdAlumno, Alumno, IdTrainner, Trainner, Fecha, IdDieta) {
     return db.query(
-      `${DietaScript.UpdateDieta}(${IdAlumno}, ${Alumno}, ${IdTrainner}, ${Trainner}, ${Fecha}, ${IdDieta});`
+      `${DietaScript.UpdateDieta}(${IdAlumno}, '${Alumno}', ${IdTrainner}, '${Trainner}', '${Fecha}', ${IdDieta});`
     );
   }
 

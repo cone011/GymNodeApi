@@ -71,9 +71,10 @@ exports.InsertDieta = (req, res, next) => {
   )
     .then((result) => {
       ResultNoFound(result);
-      res
-        .status(201)
-        .json({ message: "The dieta was inseted correctly", result: result });
+      res.status(201).json({
+        message: "The dieta was inseted correctly",
+        ...result[0][0][0],
+      });
     })
     .catch((err) => {
       ErrorHandler(err, next);
