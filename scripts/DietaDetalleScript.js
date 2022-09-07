@@ -7,7 +7,7 @@ module.exports = class DietaScript {
 
   static InsertDietaDetalle = "CALL pa_InsertDietaDetalle";
 
-  static UpdateDietaDetalle = "CAL pa_UpdateDietaDetalle";
+  static UpdateDietaDetalle = "CALL pa_UpdateDietaDetalle";
 
   static DeleteDietaDetalle = "CALL pa_DeleteDietaDetale";
 };

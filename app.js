@@ -16,6 +16,7 @@ const DietaRouter = require("./routes/DietaRoute");
 const DietaDetalleRouter = require("./routes/DietaDetalleRoute");
 const TrainnerRouter = require("./routes/TrainnerRoute");
 const FormaComidaRouter = require("./routes/FormaComidaRoute");
+const RutinaRouter = require("./routes/RutinaRoute");
 
 const app = express();
 
@@ -76,6 +77,7 @@ app.use("/api", DietaDetalleRouter);
 app.use("/api", DietaRouter);
 app.use("/api", TrainnerRouter);
 app.use("/api", FormaComidaRouter);
+app.use("/api", RutinaRouter);
 
 app.use((error, req, res, next) => {
   console.log(error);

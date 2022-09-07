@@ -39,9 +39,17 @@ module.exports = class Dieta {
     );
   }
 
-  static UpdateDieta(IdAlumno, Alumno, IdTrainner, Trainner, Fecha, IdDieta) {
+  static UpdateDieta(
+    IdAlumno,
+    Alumno,
+    IdTrainner,
+    Trainner,
+    Fecha,
+    Observacion,
+    IdDieta
+  ) {
     return db.query(
-      `${DietaScript.UpdateDieta}(${IdAlumno}, '${Alumno}', ${IdTrainner}, '${Trainner}', '${Fecha}', ${IdDieta});`
+      `${DietaScript.UpdateDieta}(${IdAlumno}, '${Alumno}', ${IdTrainner}, '${Trainner}', '${Fecha}', '${Observacion}', ${IdDieta});`
     );
   }
 

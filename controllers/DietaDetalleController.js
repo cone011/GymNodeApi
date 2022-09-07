@@ -49,41 +49,6 @@ exports.GetObjectByBaseDieta = (req, res, next) => {
     });
 };
 
-exports.InsertDietaDetalle = (req, res, next) => {
-  const errors = validationResult(req);
-  Validate(errors);
-  const IdDieta = req.body.IdDieta;
-  const Dia = req.body.Dia;
-  const Concepto = req.body.Concepto;
-  DietaDetalle.InsertDietaDetalle(IdDieta, Dia, Concepto)
-    .then((result) => {
-      ResultNoFound(result);
-      res.status(201).json({ message: "Was able to insert", result: result });
-    })
-    .catch((err) => {
-      ErrorHandler(err, next);
-    });
-};
-
-exports.UpdateDietaDetalle = (req, res, next) => {
-  const errors = validationResult(req);
-  Validate(errors);
-  const IdDieta = req.body.IdDieta;
-  const Dia = req.body.Dia;
-  const Concepto = req.body.Concepto;
-  const IdDietaDetalle = req.params.IdDietaDetalle;
-  DietaDetalle.UpdateDietaDetalle(IdDieta, Dia, Concepto, IdDietaDetalle)
-    .then((result) => {
-      ResultNoFound(result);
-      res
-        .status(201)
-        .json({ message: "the register was able to update", result: result });
-    })
-    .catch((err) => {
-      ErrorHandler(err, next);
-    });
-};
-
 exports.DeleteDietaDetalle = (req, res, next) => {
   const errors = validationResult(req);
   Validate(errors);

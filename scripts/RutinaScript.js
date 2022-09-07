@@ -3,9 +3,9 @@ module.exports = class RutinaScript {
 
   static GetObjectByIdRutina = "CALL pa_GetObjectByIdRutina";
 
-  static GetRutinaByToday = "CALL pa_GetRutinaHoyByData";
+  static GetRutinaByToday = "CALL pa_GetRutinaHoyByData();";
 
-  static GetRutinaBySemanaActual = "CALL pa_GetRutinaSemanaAcutal";
+  static GetRutinaBySemanaActual = "CALL pa_GetRutinaSemanaAcutal();";
 
   static GetRutinaByDate = "CALL pa_GetRutinaByDate";
 

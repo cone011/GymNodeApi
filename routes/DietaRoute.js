@@ -30,7 +30,7 @@ router.put(
     body("Alumno").trim().isLength({ min: 5 }),
     body("IdTrainner").isNumeric().isLength({ min: 1 }),
     body("Trainner").trim().isLength({ min: 5 }),
-    body("FechaCarga").isISO8601().toDate(),
+    //body("FechaCarga").isISO8601().toDate(),
     param("IdDieta").isNumeric().isLength({ min: 1 }),
   ],
   dietaController.UpdateDieta

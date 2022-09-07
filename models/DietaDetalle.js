@@ -32,9 +32,15 @@ module.exports = class DietaDetalle {
     );
   }
 
-  static UpdateDietaDetalle(IdDieta, IdDia, IdFormaComida, IdDietaDetalle) {
+  static UpdateDietaDetalle(
+    IdDieta,
+    IdDia,
+    IdFormaComida,
+    Concepto,
+    IdDietaDetalle
+  ) {
     return db.execute(
-      `${DietaDetalleScript.UpdateDietaDetalle}(${IdDieta}, ${IdFormaComida}, ${IdDia}, ${IdDietaDetalle});`
+      `${DietaDetalleScript.UpdateDietaDetalle}(${IdDieta}, ${IdFormaComida}, ${IdDia}, '${Concepto}',${IdDietaDetalle});`
     );
   }
 

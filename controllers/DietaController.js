@@ -90,34 +90,53 @@ exports.InsertDieta = async (req, res, next) => {
   }
 };
 
-exports.UpdateDieta = (req, res, next) => {
-  const errors = validationResult(req);
-  Validate(errors);
-  const IdAlumno = req.body.IdAlumno;
-  const Alumno = req.body.Alumno;
-  const IdTrainner = req.body.IdTrainner;
-  const Trainner = req.body.Trainner;
-  const FechaCarga = req.body.FechaCarga;
-  const Observacion = req.body.Observacion;
-  const IdDieta = req.params.IdDieta;
-  Dieta.UpdateDieta(
-    IdAlumno,
-    Alumno,
-    IdTrainner,
-    Trainner,
-    FechaCarga,
-    Observacion,
-    IdDieta
-  )
-    .then((result) => {
-      ResultNoFound(result);
-      res
-        .status(201)
-        .json({ message: "The update was correct", result: result });
-    })
-    .catch((err) => {
-      ErrorHandler(err, next);
+exports.UpdateDieta = async (req, res, next) => {
+  try {
+    const errors = validationResult(req);
+    Validate(errors);
+    const IdAlumno = req.body.IdAlumno;
+    const Alumno = req.body.Alumno;
+    const IdTrainner = req.body.IdTrainner;
+    const Trainner = req.body.Trainner;
+    const FechaCarga = req.body.FechaCarga;
+    const Observacion = req.body.Observacion;
+    const DietaDetalleList = req.body.DietaDetalleList;
+    const IdDieta = req.params.IdDieta;
+    const result = await Dieta.UpdateDieta(
+      IdAlumno,
+      Alumno,
+      IdTrainner,
+      Trainner,
+      FechaCarga,
+      Observacion,
+      IdDieta
+    );
+    const Id = { ...result[0][0][0] };
+    for (const key in DietaDetalleList) {
+      if (DietaDetalleList[key].esNuevo) {
+        const resultDetal = await DietaDetalle.InsertDietaDetalle(
+          Id.Id,
+          DietaDetalleList[key].IdFormaComida,
+          DietaDetalleList[key].IdDia,
+          DietaDetalleList[key].Concepto
+        );
+      } else {
+        const resultDetal = await DietaDetalle.UpdateDietaDetalle(
+          Id.Id,
+          DietaDetalleList[key].IdFormaComida,
+          DietaDetalleList[key].IdDia,
+          DietaDetalleList[key].Concepto,
+          DietaDetalleList[key].IdDietaDetalle
+        );
+      }
+    }
+    res.status(201).json({
+      message: "The dieta was updated correctly",
+      Id: Id,
     });
+  } catch (err) {
+    ErrorHandler(err, next);
+  }
 };
 
 exports.DeleteDieta = (req, res, next) => {
