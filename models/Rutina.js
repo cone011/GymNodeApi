@@ -40,7 +40,8 @@ module.exports = class Rutina {
     IdTrainner,
     Trainner,
     Fecha,
-    Observacion
+    Observacion,
+    IdRutina
   ) {
     return db.query(
       `${RutinaScript.InsertRutina}(${IdAlumno},'${Alumno}', ${IdTrainner}, '${Trainner}', '${Fecha}', '${Observacion}')`

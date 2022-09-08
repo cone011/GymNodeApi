@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `gymdb` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `gymdb`;
 -- MySQL dump 10.13  Distrib 8.0.29, for Win64 (x86_64)
 --
 -- Host: localhost    Database: gymdb
@@ -87,7 +89,7 @@ CREATE TABLE `dieta` (
   `FechaCarga` date NOT NULL,
   `Observacion` varchar(300) DEFAULT NULL,
   PRIMARY KEY (`IdDieta`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -96,6 +98,7 @@ CREATE TABLE `dieta` (
 
 LOCK TABLES `dieta` WRITE;
 /*!40000 ALTER TABLE `dieta` DISABLE KEYS */;
+INSERT INTO `dieta` VALUES (1,1,'Juan Caimen',1,'Juan Caimen','2022-09-06','undefined'),(2,1,'Juan Caimen',1,'Juan Caimen','2022-09-06','undefined'),(3,1,'Juan Caimen',1,'Juan Caimen','2022-09-06','undefined'),(4,1,'Juan Caimen',1,'Juan Caimen','2022-09-06','undefined'),(5,1,'Juan Caimen',1,'Juan Caimen','2022-09-06','undefined'),(6,1,'Juan Caimen',1,'Juan Caimen','2022-09-06','undefined'),(7,1,'Juan Caimen',1,'Juan Caimen','2022-09-06','undefined'),(8,1,'Juan Caimen',1,'Juan Caimen','2022-09-06','undefined'),(9,1,'Juan Caimen',1,'Juan Caimen','2022-09-06','undefined'),(10,1,'Juan Caimen',1,'Juan Caimen','2022-09-07','undefined'),(11,1,'Juan Caimen',1,'Juan Caimen','2022-09-10','undefined');
 /*!40000 ALTER TABLE `dieta` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -114,12 +117,10 @@ CREATE TABLE `dietadetalle` (
   `Concepto` varchar(500) NOT NULL,
   PRIMARY KEY (`IdDietaDetalle`),
   KEY `IdDieta_idx` (`IdDieta`),
-  KEY `IdFormaComida_idx` (`IdFormaComida`),
   KEY `IdDia_idx` (`IdDia`),
   CONSTRAINT `IdDia` FOREIGN KEY (`IdDia`) REFERENCES `dias` (`IdDia`) ON UPDATE CASCADE,
-  CONSTRAINT `IdDieta` FOREIGN KEY (`IdDieta`) REFERENCES `dieta` (`IdDieta`) ON DELETE CASCADE,
-  CONSTRAINT `IdFormaComida` FOREIGN KEY (`IdFormaComida`) REFERENCES `formacomida` (`IdFormaComida`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  CONSTRAINT `IdDieta` FOREIGN KEY (`IdDieta`) REFERENCES `dieta` (`IdDieta`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -128,6 +129,7 @@ CREATE TABLE `dietadetalle` (
 
 LOCK TABLES `dietadetalle` WRITE;
 /*!40000 ALTER TABLE `dietadetalle` DISABLE KEYS */;
+INSERT INTO `dietadetalle` VALUES (1,11,6,6,'dsdsad'),(2,11,3,2,'dsdasd'),(3,11,2,6,'dsadsadas'),(4,11,2,3,'dsdsad');
 /*!40000 ALTER TABLE `dietadetalle` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -204,7 +206,7 @@ CREATE TABLE `rutina` (
   PRIMARY KEY (`IdRutina`),
   KEY `IdAlumno_idx` (`IdAlumno`),
   CONSTRAINT `IdAlumno` FOREIGN KEY (`IdAlumno`) REFERENCES `alumno` (`IdAlumno`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -213,6 +215,7 @@ CREATE TABLE `rutina` (
 
 LOCK TABLES `rutina` WRITE;
 /*!40000 ALTER TABLE `rutina` DISABLE KEYS */;
+INSERT INTO `rutina` VALUES (1,1,'Juan Caimen',1,'Juan Caimen','2022-09-10','undefined'),(2,1,'Juan Caimen',1,'Juan Caimen','2022-09-08','undefined');
 /*!40000 ALTER TABLE `rutina` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -301,6 +304,7 @@ CREATE TABLE `trainner` (
 
 LOCK TABLES `trainner` WRITE;
 /*!40000 ALTER TABLE `trainner` DISABLE KEYS */;
+INSERT INTO `trainner` VALUES (1,1,'4191912','Juan Caimen','1993-08-26',29,'srg','0971-320-425','jjcaimen@gmail.com',_binary '\0');
 /*!40000 ALTER TABLE `trainner` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -340,4 +344,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-09-01 15:18:12
+-- Dump completed on 2022-09-08 14:01:17
