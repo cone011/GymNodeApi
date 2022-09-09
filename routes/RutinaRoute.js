@@ -24,7 +24,7 @@ router.get(
 );
 
 router.get(
-  "/search-rutina/:FechaInicio/:FechaFin/:IdAlumno/:IdTrainner",
+  "/search-rutina/:FechaInicio/:FechaFin",
   [param("FechaInicio").isDate(), param("FechaFin").isDate()],
   rutinaController.GetRutinaByDate
 );

@@ -206,7 +206,7 @@ CREATE TABLE `rutina` (
   PRIMARY KEY (`IdRutina`),
   KEY `IdAlumno_idx` (`IdAlumno`),
   CONSTRAINT `IdAlumno` FOREIGN KEY (`IdAlumno`) REFERENCES `alumno` (`IdAlumno`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -215,7 +215,7 @@ CREATE TABLE `rutina` (
 
 LOCK TABLES `rutina` WRITE;
 /*!40000 ALTER TABLE `rutina` DISABLE KEYS */;
-INSERT INTO `rutina` VALUES (1,1,'Juan Caimen',1,'Juan Caimen','2022-09-10','undefined'),(2,1,'Juan Caimen',1,'Juan Caimen','2022-09-08','undefined');
+INSERT INTO `rutina` VALUES (1,1,'Juan Caimen',1,'Juan Caimen','2022-09-10','undefined'),(2,1,'Juan Caimen',1,'Juan Caimen','2022-09-08','undefined'),(3,1,'Juan Caimen',1,'Juan Caimen','2022-09-09','undefined'),(4,1,'Juan Caimen',1,'Juan Caimen','2022-09-09','undefined'),(5,1,'Juan Caimen',1,'Juan Caimen','2022-09-09','undefined'),(6,1,'Juan Caimen',1,'Juan Caimen','2022-09-09','undefined'),(7,1,'Juan Caimen',1,'Juan Caimen','2022-09-09','undefined'),(8,1,'Juan Caimen',1,'Juan Caimen','2022-09-09','undefined'),(9,1,'Juan Caimen',1,'Juan Caimen','2022-09-09','undefined'),(10,1,'Juan Caimen',1,'Juan Caimen','2022-09-09','undefined'),(11,1,'Juan Caimen',1,'Juan Caimen','2022-09-09','undefined'),(12,1,'Juan Caimen',1,'Juan Caimen','2022-09-09','undefined'),(13,1,'Juan Caimen',1,'Juan Caimen','2022-09-09','undefined');
 /*!40000 ALTER TABLE `rutina` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -236,10 +236,8 @@ CREATE TABLE `rutinadetalle` (
   KEY `IdRutinaDetalleEjercicio_idx` (`IdRutina`),
   KEY `IdDiaRutinaDetalle_idx` (`IdDia`) /*!80000 INVISIBLE */,
   KEY `IdEjercicioRutina_idx` (`IdEjercicio`),
-  CONSTRAINT `IdDiaRutina` FOREIGN KEY (`IdDia`) REFERENCES `dias` (`IdDia`),
-  CONSTRAINT `IdEjercicioRutina` FOREIGN KEY (`IdEjercicio`) REFERENCES `ejercicio` (`IdTipoEjercicio`),
-  CONSTRAINT `IdRutina` FOREIGN KEY (`IdRutina`) REFERENCES `rutina` (`IdRutina`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  CONSTRAINT `IdRutina` FOREIGN KEY (`IdRutina`) REFERENCES `rutina` (`IdRutina`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -248,6 +246,7 @@ CREATE TABLE `rutinadetalle` (
 
 LOCK TABLES `rutinadetalle` WRITE;
 /*!40000 ALTER TABLE `rutinadetalle` DISABLE KEYS */;
+INSERT INTO `rutinadetalle` VALUES (2,12,2,6,'undefined'),(3,12,5,12,'undefined'),(4,13,2,6,'undefineddasdasdas'),(5,13,2,6,'prueba mod'),(6,13,2,8,'dasdasdasdada');
 /*!40000 ALTER TABLE `rutinadetalle` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -344,4 +343,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-09-08 14:01:17
+-- Dump completed on 2022-09-09 14:56:19
