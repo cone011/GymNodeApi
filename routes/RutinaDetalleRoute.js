@@ -14,7 +14,7 @@ router.get(
 router.get(
   "/RutinaBase/:IdRutina",
   [param("IdRutina").isNumeric().isLength({ min: 1 })],
-  rutinaDetalleController.GetObjectByIdRutinaDetalle
+  rutinaDetalleController.GetRutinaDetalleByBase
 );
 
 router.delete(
