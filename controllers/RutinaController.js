@@ -63,9 +63,9 @@ exports.GetRutinaByDate = (req, res, next) => {
   Validate(errors);
   const FechaInicio = req.params.FechaInicio;
   const FechaFin = req.params.FechaFin;
-  //const IdAlumno = req.params.IdAlumno;
-  //const IdTrainner = req.params.IdTrainner;
-  Rutina.GetRutinaByDate(FechaInicio, FechaFin, null, null)
+  const IdAlumno = req.params.IdAlumno;
+  const IdTrainner = req.params.IdTrainner;
+  Rutina.GetRutinaByDate(FechaInicio, FechaFin, IdAlumno, IdTrainner)
     .then((result) => {
       ResultNoFound(result);
       res.status(200).json({ message: "OK", result: result[0][0] });
