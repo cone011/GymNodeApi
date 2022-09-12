@@ -27,10 +27,12 @@ module.exports = class Usuarios {
     return db.execute(`${UsuarioScript.GetObjectByIdUsuario}(${IdUsuarios});`);
   }
 
-  static GetValidUser(Usuario, Password) {
-    return db.execute(
-      `${UsuarioScript.GetValidUsuario}('${Usuario}','${Password}')`
-    );
+  static GetValidUser(Usuario) {
+    return db.execute(`${UsuarioScript.GetValidUsuario}('${Usuario}')`);
+  }
+
+  static ValidUserExist(Usuario) {
+    return db.execute(`${UsuarioScript.ValidUsuario}('${Usuario}');`);
   }
 
   static InsertUsuario(Usuario, Password, EsTrainner) {

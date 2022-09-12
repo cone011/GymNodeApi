@@ -36,7 +36,7 @@ CREATE TABLE `alumno` (
   `Email` varchar(100) NOT NULL,
   `EstaEliminado` bit(1) NOT NULL DEFAULT b'0',
   PRIMARY KEY (`IdAlumno`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -45,7 +45,7 @@ CREATE TABLE `alumno` (
 
 LOCK TABLES `alumno` WRITE;
 /*!40000 ALTER TABLE `alumno` DISABLE KEYS */;
-INSERT INTO `alumno` VALUES (1,1,'41914912','Juan Caimen','2022-06-29',28,'Srg. Villalba','0971-320-425','prueba',_binary '\0'),(2,1,'41914912','Juan Caimen','2022-06-29',28,'Srg. Villalba','0971-320-425','jjcaimen@gmail.com',_binary '\0'),(3,1,'41914912','Juan Caimen','1993-08-26',28,'Srg. Villalba','0971-320-425','jjcaimen@gmail.com',_binary '\0');
+INSERT INTO `alumno` VALUES (1,1,'41914912','Juan Caimen','2022-06-29',28,'Srg. Villalba','0971-320-425','prueba',_binary '\0'),(2,1,'41914912','Juan Caimen','2022-06-29',28,'Srg. Villalba','0971-320-425','jjcaimen@gmail.com',_binary '\0'),(3,1,'41914912','Juan Caimen','1993-08-26',28,'Srg. Villalba','0971-320-425','jjcaimen@gmail.com',_binary '\0'),(4,1,'4191912','Juan caimen','2022-09-12',29,'dasdsadadasddasdasdadadad','0971-320-425','jjcaimen@gmail.com',_binary '\0'),(5,1,'4191912','Juan caimen','2022-09-12',29,'dasdsadadadadada','0971-320-425','jjcaimen@gmail.com',_binary '\0'),(6,1,'4191912','Juan caimen','2022-09-12',29,'fgffgfghfgfgfghfghfgh','0971-320-425','jjcaimen@gmail.com',_binary '\0'),(7,1,'4191912','Juan caimen','2022-09-12',29,'dsdsdadasdasdasdsadsa','0971-320-425','jjcaimen@gmail.com',_binary '\0'),(8,1,'4191912','Juan caimen','2022-09-12',29,'DDSDSDADASDSADSDSADAS','0971-320-425','jjcaimen@gmail.com',_binary '\0'),(9,1,'4191912','Juan caimen','2022-09-12',29,'dsdadassdadaadadad','0971-320-425','jjcaimen@gmail.com',_binary '\0'),(10,1,'4191912','HOMBRO','2022-09-12',29,'dsdadasdasdasd','0971-320-425','jjcaimen@gmail.com',_binary '\0'),(11,1,'4191912','dasdasdada','2022-09-12',29,'dsadsadasddadasdsadas','0971-320-425','jjcaimen@gmail.com',_binary '\0'),(12,1,'4191912','dasdasdada','2022-09-12',29,'dsdsadasdasdasdadasd','0971-320-425','jjcaimen@gmail.com',_binary '\0'),(13,1,'4191912','dasdasdada','2022-09-12',29,'sddsadasdasdasda','0971-320-425','jjcaimen@gmail.com',_binary '\0'),(14,1,'4191912','dasdasdada','2022-09-12',35,'4dsadsdasdasdadsad','0971-320-425','jjcaimen@gmail.com',_binary '\0'),(15,1,'4191912','Juan caimen','2022-09-12',29,'sadsadasdasdaddaadasd 323123123','0971-320-425','vania_3007@hotmail.com',_binary '\0');
 /*!40000 ALTER TABLE `alumno` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -321,7 +321,7 @@ CREATE TABLE `usuario` (
   `EsTrainner` bit(1) NOT NULL DEFAULT b'0',
   `EstaEliminado` bit(1) NOT NULL DEFAULT b'0',
   PRIMARY KEY (`IdUsuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -330,7 +330,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (1,'jjcaimen@gmail.com','$2a$12$kgRkPRrCE2PvuwyCgIeP9.0DgsVJMdQZ./b24jEIlDPNJbeqd1Qr6',_binary '\0',_binary '\0');
+INSERT INTO `usuario` VALUES (1,'jjcaimen@gmail.com','$2a$12$kgRkPRrCE2PvuwyCgIeP9.0DgsVJMdQZ./b24jEIlDPNJbeqd1Qr6',_binary '\0',_binary '\0'),(2,'undefined','$2a$12$mC8aFW.iRPgmT5olZ4Fz0O5B0Hmv9L35c2YUUNyCWnCTavPafm9By',_binary '',_binary '\0');
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -343,4 +343,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-09-09 14:56:19
+-- Dump completed on 2022-09-12 15:31:38

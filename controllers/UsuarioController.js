@@ -2,6 +2,7 @@ const bcrypt = require("bcryptjs");
 const Usuario = require("../models/Usuarios");
 const { validationResult } = require("express-validator");
 const { Validate } = require("../util/ValidationValue");
+const { ErrorHandler } = require("../util/ErrorHandler");
 
 exports.GetAllUsuarios = (req, res, next) => {
   Usuario.GetAllUsuarios()
@@ -44,12 +45,18 @@ exports.GetObjectByIdUsuario = (req, res, next) => {
     });
 };
 
-exports.GetValidUsuario = (req, res, next) => {
-  const errors = validationResult(req);
-  Validate(errors);
-  const User = req.params.User;
-  const Password = req.params.Password;
-  bcrypt
+exports.GetValidUsuario = async (req, res, next) => {
+  try {
+    const errors = validationResult(req);
+    Validate(errors);
+    const User = req.body.Usuario;
+    const Password = req.body.Contraseña;
+
+    const result = await Usuario.GetValidUser(User, Password);
+
+    console.log(result[0][0]);
+
+    /*bcrypt
     .compare(Password, 12)
     .then((hashedPassword) => {
       return Usuario.GetValidUser(User, hashedPassword);
@@ -62,19 +69,13 @@ exports.GetValidUsuario = (req, res, next) => {
         err.statusCode = 500;
       }
       next(err);
-    });
-};
+    });*/
 
-/*exports.GetValidUsuario = async function (req, res, next) {
-  try {
-    const User = req.body.User;
-    const Password = req.body.Password;
-    res.json(await Usuario.GetValidUser(User, Password));
+    res.status(201).json({ message: "Get user correct" });
   } catch (err) {
-    console.error(`Error while getting programming languages `, err.message);
-    next(err);
+    ErrorHandler(err, next);
   }
-};*/
+};
 
 exports.InsertUsuario = (req, res, next) => {
   const errors = validationResult(req);
