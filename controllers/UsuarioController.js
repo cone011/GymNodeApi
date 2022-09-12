@@ -1,6 +1,6 @@
 const bcrypt = require("bcryptjs");
 const Usuario = require("../models/Usuarios");
-const { validationResult } = require("express-validator/check");
+const { validationResult } = require("express-validator");
 const { Validate } = require("../util/ValidationValue");
 
 exports.GetAllUsuarios = (req, res, next) => {
@@ -11,7 +11,9 @@ exports.GetAllUsuarios = (req, res, next) => {
         error.statusCode = 404;
         throw error;
       }
-      res.status(200).json({ message: "Fetched all Usuarios", result: result });
+      res
+        .status(200)
+        .json({ message: "Fetched all Usuarios", result: result[0][0] });
     })
     .catch((err) => {
       if (!err.statusCode) {
@@ -45,8 +47,8 @@ exports.GetObjectByIdUsuario = (req, res, next) => {
 exports.GetValidUsuario = (req, res, next) => {
   const errors = validationResult(req);
   Validate(errors);
-  const User = req.body.User;
-  const Password = req.body.Password;
+  const User = req.params.User;
+  const Password = req.params.Password;
   bcrypt
     .compare(Password, 12)
     .then((hashedPassword) => {

@@ -28,15 +28,15 @@ module.exports = class Alumno {
   }
 
   static GetAllAlumno() {
-    return db.execute(`${AlumnoScript.GetAllAlumnos}`);
+    return db.query(`${AlumnoScript.GetAllAlumnos}`);
   }
 
   static GetObjectByIdAlumno(IdAlumno) {
-    return db.execute(`${AlumnoScript.GetObjectByIdAlumnos}(${IdAlumno});`);
+    return db.query(`${AlumnoScript.GetObjectByIdAlumnos}(${IdAlumno});`);
   }
 
   static GetSearchAlumno(SQLSearch) {
-    return db.execute(`${AlumnoScript.GetSearchAlumno}('${SQLSearch}');`);
+    return db.query(`${AlumnoScript.GetSearchAlumno}('${SQLSearch}');`);
   }
 
   static InsertAlumno(
@@ -49,7 +49,7 @@ module.exports = class Alumno {
     Telefono,
     Email
   ) {
-    return db.execute(
+    return db.query(
       `${AlumnoScript.InsertAlumno}(${IdUsuario},'${Cedula}','${Nombre}','${FechaNacimiento}',${Edad},'${Direccion}','${Telefono}','${Email}');`
     );
   }
@@ -65,12 +65,12 @@ module.exports = class Alumno {
     Email,
     IdAlumno
   ) {
-    return db.execute(
+    return db.query(
       `${AlumnoScript.UpdateAlumno}(${IdUsuario},'${Cedula}','${Nombre}','${FechaNacimiento}',${Edad},'${Direccion}','${Telefono}','${Email}',${IdAlumno});`
     );
   }
 
   static DeleteAlumno(IdAlumno) {
-    return db.execute(`${AlumnoScript.DeleteAlumno}(${IdAlumno});`);
+    return db.query(`${AlumnoScript.DeleteAlumno}(${IdAlumno});`);
   }
 };

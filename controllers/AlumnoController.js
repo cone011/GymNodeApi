@@ -1,5 +1,5 @@
 const Alumno = require("../models/Alumno");
-const { validationResult } = require("express-validator/check");
+const { validationResult } = require("express-validator");
 const { Validate } = require("../util/ValidationValue");
 const { ResultNoFound } = require("../util/ResultNotFound");
 const { ErrorHandler } = require("../util/ErrorHandler");
@@ -83,7 +83,7 @@ exports.InsertAlumno = (req, res, next) => {
 };
 
 exports.UpdateAlumno = (req, res, next) => {
-  const errors = validationResult(erros);
+  const errors = validationResult(req);
   Validate(errors);
   const IdAlumno = req.params.IdAlumno;
   const IdUsuario = req.body.IdUsuario;

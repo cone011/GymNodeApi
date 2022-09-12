@@ -8,7 +8,14 @@ const usuarioController = require("../controllers/UsuarioController");
 
 router.get("/Usuario", usuarioController.GetAllUsuarios);
 
-router.post("/Usuario/GetValid", usuarioController.GetValidUsuario);
+router.get(
+  "/valid-usuario/:Usuario/:Contraseña",
+  [
+    param("Usuario").trim().isLength({ min: 5 }),
+    param("Contraseña").trim().isNumeric({ min: 5 }),
+  ],
+  usuarioController.GetValidUsuario
+);
 
 router.get(
   "/Usuario/:IdUsuario",
