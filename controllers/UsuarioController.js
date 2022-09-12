@@ -54,24 +54,17 @@ exports.GetValidUsuario = async (req, res, next) => {
 
     const result = await Usuario.GetValidUser(User, Password);
 
-    console.log(result[0][0]);
+    const sqlResult = { ...result[0][0][0] };
 
-    /*bcrypt
-    .compare(Password, 12)
-    .then((hashedPassword) => {
-      return Usuario.GetValidUser(User, hashedPassword);
-    })
-    .then((result) => {
-      res.status(201).json({ message: "Get user correct", result: result });
-    })
-    .catch((err) => {
-      if (!err.statusCode) {
-        err.statusCode = 500;
-      }
-      next(err);
-    });*/
+    const response = await bcrypt.compare(Password, sqlResult.Password);
 
-    res.status(201).json({ message: "Get user correct" });
+    if (response) {
+      res.status(201).json({ message: "Get user correct", result: sqlResult });
+    } else {
+      throw new Error(
+        "Contraseña incorrecta, favor de ingresar de nuevo los datos para ingresar"
+      );
+    }
   } catch (err) {
     ErrorHandler(err, next);
   }
