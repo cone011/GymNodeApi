@@ -3,6 +3,7 @@ const Usuario = require("../models/Usuarios");
 const { validationResult } = require("express-validator");
 const { Validate } = require("../util/ValidationValue");
 const { ErrorHandler } = require("../util/ErrorHandler");
+const jwt = require("jsonwebtoken");
 
 exports.GetAllUsuarios = (req, res, next) => {
   Usuario.GetAllUsuarios()
@@ -52,14 +53,21 @@ exports.GetValidUsuario = async (req, res, next) => {
     const User = req.body.Usuario;
     const Password = req.body.Contraseña;
 
-    const result = await Usuario.GetValidUser(User, Password);
+    const result = await Usuario.GetValidUser(User);
 
     const sqlResult = { ...result[0][0][0] };
 
     const response = await bcrypt.compare(Password, sqlResult.Password);
 
     if (response) {
-      res.status(201).json({ message: "Get user correct", result: sqlResult });
+      const token = jwt.sign(
+        { IdUsuario: sqlResult.IdUsuario, Usuario: sqlResult.User },
+        "GymTokenWeb",
+        { expiresIn: "1h" }
+      );
+      res
+        .status(201)
+        .json({ message: "Get user correct", result: sqlResult, token: token });
     } else {
       throw new Error(
         "Contraseña incorrecta, favor de ingresar de nuevo los datos para ingresar"
