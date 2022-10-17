@@ -109,7 +109,7 @@ exports.DeleteEjercicio = (req, res, next) => {
   Ejercicio.DeleteEjercicio(IdEjercicio)
     .then((result) => {
       ResultNoFound(result, "Cant delete ejercicio");
-      res.status(200).json({ message: "Delete is ok" });
+      res.status(200).json({ message: "OK", result });
     })
     .catch((err) => {
       ErrorHandler(err, next);

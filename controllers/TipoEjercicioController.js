@@ -74,7 +74,7 @@ exports.DeleteTipoEjercicio = (req, res, next) => {
   const IdTipoEjercicio = req.params.IdTipoEjercicio;
   TipoEjercicio.DeleteTipoEjercicio(IdTipoEjercicio)
     .then((result) => {
-      res.status(200).json({ message: "Deleted type", result });
+      res.status(200).json({ message: "OK", result });
     })
     .catch((err) => {
       ErrorHandler(err, next);
