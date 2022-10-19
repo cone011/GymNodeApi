@@ -29,8 +29,8 @@ router.put(
   "/TipoEjercicio/:IdTipoEjercicio",
   [
     param("IdTipoEjercicio").isNumeric().isLength({ min: 1 }),
-    body("Codigo").trim().isLength({ min: 3 }),
-    body("Nombre").trim().isLength({ min: 5 }),
+    body("Codigo").trim().isLength({ min: 2 }),
+    body("Nombre").trim().isLength({ min: 3 }),
   ],
   tipoEjercicioController.UpdateTipoEjercicio
 );
